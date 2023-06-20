@@ -1,13 +1,27 @@
 <?php
 
 $pdo = new PDO("mysql:host=localhost;dbname=alura_play", "root", "");
-
 $sql = "INSERT INTO videos (url, title) VALUES (?, ?)";
 
 
-$statement = $pdo->prepare($sql);
-$statement-> bindValue(1, $_POST['url']);
-$statement-> bindValue(2, $_POST['titulo']);
+$url = filter_input(INPUT_POST, 'url', FILTER_VALIDATE_URL);
+$titulo = filter_input(INPUT_POST, 'titulo');
 
-var_dump($statement->execute());
+if($url === FALSE or $titulo === FALSE){
+	header('Location: index.php?sucesso=0');
+	exit();
+}
+
+
+$statement = $pdo->prepare($sql);
+$statement-> bindValue(1, $url);
+$statement-> bindValue(2, $titulo);
+
+if($statement->execute() == FALSE){
+
+	header('Location: /index.php?sucesso=0');
+}else {
+
+	header('Location: /index.php?sucesso=1');	
+}
 
