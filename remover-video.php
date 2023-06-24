@@ -10,10 +10,10 @@ $statement = $pdo->prepare($sql);
 
 $statement-> bindValue(1, $id);
 
-if($statement-> execute() == FALSE){
+if($statement-> execute() === FALSE){
 
-	header('Location: index.php?sucesso=0');
+	header('Location: /?sucesso=0');
 }else{
 
-	header('Location: index.php?sucesso=1');
+	header('Location: /?sucesso=1');
 }
