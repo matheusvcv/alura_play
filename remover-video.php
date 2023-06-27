@@ -10,7 +10,10 @@ $statement = $pdo->prepare($sql);
 
 $statement-> bindValue(1, $id);
 
-if($statement-> execute() === FALSE){
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
+
+
+if($repository->remove($id) === FALSE){
 
 	header('Location: /?sucesso=0');
 }else{

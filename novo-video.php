@@ -13,11 +13,10 @@ if($url === FALSE or $titulo === FALSE){
 }
 
 
-$statement = $pdo->prepare($sql);
-$statement-> bindValue(1, $url);
-$statement-> bindValue(2, $titulo);
+$repository = new \Alura\Mvc\Repository\VideoRepository($pdo);
 
-if($statement->execute() == FALSE){
+
+if($repository->add(new \Alura\Mvc\Entity\Video($url, $titulo)) == FALSE){
 
 	header('Location: /?sucesso=0');
 }else {
